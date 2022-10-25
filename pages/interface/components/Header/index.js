@@ -1,8 +1,10 @@
 import { Header, Box, ActionMenu, ActionList, IconButton, Truncate, Text, Tooltip } from '@primer/react';
 import { PersonFillIcon, HomeIcon, SquareFillIcon } from '@primer/octicons-react';
 import { CgTab } from 'react-icons/cg';
+import { FiSearch } from 'react-icons/fi';
 import { useUser } from 'pages/interface/index.js';
 import { HeaderLink, Link } from 'pages/interface/components/Link';
+import { TextField } from '../TextField';
 import { useRouter } from 'next/router';
 
 export default function HeaderComponent() {
@@ -36,6 +38,10 @@ export default function HeaderComponent() {
         <HeaderLink href="/recentes" sx={pathname.startsWith('/recentes') && activeLinkStyle}>
           Recentes
         </HeaderLink>
+      </Header.Item>
+
+      <Header.Item>
+        <TextField placeholder="Pesquise conteúdos" trailingVisual={FiSearch} />
       </Header.Item>
 
       {!isLoading && !user && (
