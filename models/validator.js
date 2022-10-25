@@ -244,7 +244,24 @@ const schemas = {
         }),
     });
   },
-
+  keywords: function () {
+    return Joi.object({
+      keywords: Joi.string()
+        .replace(/^\u200e|\u200e$|^\u200f|\u200f$|\u0000/g, '')
+        .allow(null)
+        .min(1)
+        .max(256)
+        .trim()
+        .when('$required.keywords', { is: 'required', then: Joi.required(), otherwise: Joi.optional() })
+        .messages({
+          'any.required': `"keywords" é um campo obrigatório.`,
+          'string.empty': `"keywords" não pode estar em branco.`,
+          'string.base': `"keywords" deve ser do tipo String.`,
+          'string.min': `"keywords" deve conter no mínimo {#limit} caracteres.`,
+          'string.max': `"keywords" deve conter no máximo {#limit} caracteres.`,
+        }),
+    });
+  },
   title: function () {
     return Joi.object({
       title: Joi.string()
