@@ -200,6 +200,40 @@ async function findAll(values = {}, options = {}) {
   }
 }
 
+async function findByKeywords(keywords, values = {}, options = {}) {
+  var stringRegex = keywords
+    .split(' ')
+    .filter((word) => word)
+    .join('|');
+
+  var query = {
+    text: `
+      SELECT 
+        id,
+        owner_id,
+        parent_id,
+        slug,
+        title,
+        status,
+        source_url,
+        created_at,
+        updated_at,
+        published_at,
+        deleted_at
+      FROM 
+        contents 
+      WHERE 
+        title ~* $1
+    `,
+    values: [stringRegex],
+  };
+
+  var results = await database.query(query);
+  results.pagination = await getPagination(values, options);
+
+  return results;
+}
+
 async function findOne(values, options = {}) {
   values.limit = 1;
   const rows = await findAll(values, options);
@@ -1052,6 +1086,7 @@ async function findRootContent(values, options = {}) {
 export default Object.freeze({
   findAll,
   findOne,
+  findByKeywords,
   findChildrenTree,
   findWithStrategy,
   findRootContent,
