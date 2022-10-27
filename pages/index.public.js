@@ -1,6 +1,5 @@
 import { DefaultLayout, ContentList } from 'pages/interface/index.js';
-import { SearchField } from './interface/components/TextField';
-import { SelectField } from 'pages/interface/components/Select';
+import { SearchForm } from './interface/components/SearchForm';
 import user from 'models/user.js';
 import content from 'models/content.js';
 import authorization from 'models/authorization.js';
@@ -22,18 +21,7 @@ export default function Home({ contentListFound, pagination }) {
   return (
     <>
       <DefaultLayout>
-        <div
-          css={{
-            justifyContent: 'space-between',
-            width: 'fill-available',
-            alignItems: 'center',
-            marginBottom: '15px',
-            display: 'flex',
-          }}>
-          <SearchField placeholder="Pesquisar" />
-          <SelectField options={targets} />
-          <SelectField options={strategies} />
-        </div>
+        <SearchForm selectFields={[strategies, targets]} />
         <ContentList
           contentList={contentListFound}
           pagination={pagination}
