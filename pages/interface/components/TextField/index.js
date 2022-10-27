@@ -14,7 +14,6 @@ export function SearchField({ children, ...props }) {
     <ButtonGroup
       css={{
         width: 'fill-available',
-        maxWidth: '75%',
       }}>
       <TextInput
         css={{
