@@ -1,8 +1,20 @@
 import { DefaultLayout, ContentList } from 'pages/interface/index.js';
+import { SearchForm } from 'pages/interface/components/SearchForm';
 import user from 'models/user.js';
 import content from 'models/content.js';
 import authorization from 'models/authorization.js';
 import validator from 'models/validator.js';
+
+const strategies = [
+  { text: 'Relevantes', value: 'relevants', selected: true },
+  { text: 'Recentes', value: 'recents' },
+  { text: 'Antigos', value: 'old' },
+];
+
+const targets = [
+  { text: 'Conteúdos', value: 'contents', selected: true },
+  { text: 'Usuários', value: 'users', disabled: true },
+];
 
 export default function Home({ contentListFound, pagination }) {
   return (
@@ -12,6 +24,7 @@ export default function Home({ contentListFound, pagination }) {
           title: 'Recentes',
           description: 'Publicações no TabNews ordenadas pelas mais recentes.',
         }}>
+        <SearchForm selectFields={[strategies, targets]} />
         <ContentList
           contentList={contentListFound}
           pagination={pagination}
