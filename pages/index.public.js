@@ -1,14 +1,39 @@
 import { DefaultLayout, ContentList } from 'pages/interface/index.js';
+import { SearchField } from './interface/components/TextField';
+import { SelectField } from 'pages/interface/components/Select';
 import user from 'models/user.js';
 import content from 'models/content.js';
 import authorization from 'models/authorization.js';
 import validator from 'models/validator.js';
 import { FaTree } from 'react-icons/fa';
 
+const strategies = [
+  { text: 'Relevantes', value: 'relevants', selected: true },
+  { text: 'Recentes', value: 'recents' },
+  { text: 'Antigos', value: 'old' },
+];
+
+const targets = [
+  { text: 'Conteúdos', value: 'contents', selected: true },
+  { text: 'Usuários', value: 'users', disabled: true },
+];
+
 export default function Home({ contentListFound, pagination }) {
   return (
     <>
       <DefaultLayout>
+        <div
+          css={{
+            justifyContent: 'space-between',
+            width: 'fill-available',
+            alignItems: 'center',
+            marginBottom: '15px',
+            display: 'flex',
+          }}>
+          <SearchField placeholder="Pesquisar" />
+          <SelectField options={targets} />
+          <SelectField options={strategies} />
+        </div>
         <ContentList
           contentList={contentListFound}
           pagination={pagination}
@@ -18,8 +43,7 @@ export default function Home({ contentListFound, pagination }) {
             title: 'Nenhum conteúdo encontrado',
             description: 'Quando eu cheguei era tudo mato...',
             icon: FaTree,
-          }}
-        />
+          }}></ContentList>
       </DefaultLayout>
     </>
   );
