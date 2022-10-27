@@ -12,7 +12,6 @@ export default function DefaultLayout({ children, containerWidth = 'large', meta
           marginX: 'auto',
           display: 'flex',
           flexWrap: 'wrap',
-          flexDirection: 'column',
           padding: [2, null, null, 4],
           paddingTop: [3, null, null, 4],
         }}>
